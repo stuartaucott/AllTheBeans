@@ -24,15 +24,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Application\Beans\Dtos\" />
     <Folder Include="Application\Beans\Commands\" />
-    <Folder Include="Application\Beans\Queries\" />
     <Folder Include="Application\BeanOfTheDay\" />
     <Folder Include="Application\Orders\" />
-    <Folder Include="Controllers\" />
-    <Folder Include="Infrastructure\Services\" />
-    <Folder Include="Infrastructure\Persistence\Configurations\" />
-    <Folder Include="Infrastructure\Persistence\Repositories\" />
     <Folder Include="Middleware\" />
   </ItemGroup>
 
