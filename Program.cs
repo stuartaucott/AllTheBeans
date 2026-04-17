@@ -3,12 +3,19 @@ using AllTheBeans.Application.Common;
 using AllTheBeans.Infrastructure.Persistence;
 using AllTheBeans.Infrastructure.Persistence.Repositories;
 using AllTheBeans.Infrastructure.Services;
-using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Identity.Web;
+using MediatR;
+using FluentValidation;
+using AllTheBeans.Application.Behaviours;
+using AllTheBeans.Middleware;
 
 var builder = WebApplication.CreateBuilder(args);
+//validation
+builder.Services.AddValidatorsFromAssemblyContaining<Program>();
+//mediatr
+builder.Services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBehaviour<,>));
 
 // Add services to the container.
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
@@ -36,7 +43,9 @@ builder.Services.AddSingleton<IDateTimeProvider, SystemDateTimeProvider>();
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
+app.UseMiddleware<ExceptionHandlingMiddleware>();
+app.UseMiddleware<SecurityHeadersMiddleware>();
+
 if (app.Environment.IsDevelopment())
 {
     app.MapOpenApi();
