@@ -24,8 +24,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Application\Beans\Commands\" />
-    <Folder Include="Application\BeanOfTheDay\" />
     <Folder Include="Application\Orders\" />
     <Folder Include="Middleware\" />
   </ItemGroup>
