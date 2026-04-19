@@ -1,15 +1,18 @@
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
+import { useIsAuthenticated } from '@azure/msal-react';
 import { BeansApi } from '../api/client';
 import type { Bean } from '../api/client';
 
 export default function BeanOfTheDay() {
+    const isAuthenticated = useIsAuthenticated();
     const [bean, setBean] = useState<Bean | null>(null);
     const [expanded, setExpanded] = useState(false);
 
     useEffect(() => {
+        if (!isAuthenticated) return;
         BeansApi.beanOfTheDay().then(setBean).catch(() => setBean(null));
-    }, []);
+    }, [isAuthenticated]);
 
     if (!bean) return null;
 

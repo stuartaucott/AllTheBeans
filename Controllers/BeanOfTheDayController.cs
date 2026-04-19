@@ -8,7 +8,7 @@ namespace AllTheBeans.Controllers;
 
 [ApiController]
 [Route("api/bean-of-the-day")]
-[AllowAnonymous]
+[Authorize]
 public sealed class BeanOfTheDayController(IMediator mediator) : ControllerBase
 {
     [HttpGet]

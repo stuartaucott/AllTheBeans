@@ -6,12 +6,14 @@ import { msalInstance } from './auth/msal';
 import App from './App';
 import './styles.css';
 
-ReactDOM.createRoot(document.getElementById('root')!).render(
-    <React.StrictMode>
-        <MsalProvider instance={msalInstance}>
-            <BrowserRouter>
-                <App />
-            </BrowserRouter>
-        </MsalProvider>
-    </React.StrictMode>
-);
+msalInstance.initialize().then(() => {
+    ReactDOM.createRoot(document.getElementById('root')!).render(
+        <React.StrictMode>
+            <MsalProvider instance={msalInstance}>
+                <BrowserRouter>
+                    <App />
+                </BrowserRouter>
+            </MsalProvider>
+        </React.StrictMode>
+    );
+});

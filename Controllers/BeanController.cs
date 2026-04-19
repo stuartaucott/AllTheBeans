@@ -12,13 +12,13 @@ namespace AllTheBeans.Controllers;
 public sealed class BeansController(IMediator mediator) : ControllerBase
 {
     [HttpGet]
-    [AllowAnonymous]
+    [Authorize]
     public async Task<IReadOnlyList<BeanDto>> Search(
     [FromQuery] SearchBeansQuery query,
     CancellationToken ct) => await mediator.Send(query, ct);
 
     [HttpGet("{id:guid}")]
-    [AllowAnonymous]
+    [Authorize]
     public async Task<ActionResult<BeanDto>> Get(Guid id, CancellationToken ct)
     {
         var dto = await mediator.Send(new GetBeanByIdQuery(id), ct);

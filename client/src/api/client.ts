@@ -4,12 +4,13 @@ const base = import.meta.env.VITE_API_BASE;
 
 async function authHeader(): Promise<Record<string, string>> {
     const account = msalInstance.getAllAccounts()[0];
-    if (!account) return {};
+    if (!account) throw new Error('Not authenticated');
     try {
         const result = await msalInstance.acquireTokenSilent({ ...loginRequest, account });
         return { Authorization: `Bearer ${result.accessToken}` };
     } catch {
-        return {};
+        await msalInstance.loginRedirect(loginRequest);
+        throw new Error('Redirecting to login');
     }
 }
 
