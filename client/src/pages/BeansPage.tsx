@@ -30,9 +30,11 @@ export default function BeansPage() {
                 />
                 <select onChange={e => setFilters(f => ({ ...f, colour: e.target.value || undefined }))}>
                     <option value="">All roasts</option>
-                    <option>Light</option>
-                    <option>Medium</option>
-                    <option>Dark</option>
+                    <option value="dark roast">Dark Roast</option>
+                    <option value="golden">Golden</option>
+                    <option value="green">Green</option>
+                    <option value="light roast">Light Roast</option>
+                    <option value="medium roast">Medium Roast</option>
                 </select>
                 <input
                     type="number" step="0.01" placeholder="Max cost"

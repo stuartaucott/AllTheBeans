@@ -14,8 +14,14 @@ public sealed class BeansController(IMediator mediator) : ControllerBase
     [HttpGet]
     [Authorize]
     public async Task<IReadOnlyList<BeanDto>> Search(
-    [FromQuery] SearchBeansQuery query,
-    CancellationToken ct) => await mediator.Send(query, ct);
+    string? query, string? country, string? colour,
+    decimal? minCost, decimal? maxCost,
+    int page = 1, int pageSize = 20,
+    CancellationToken ct = default)
+    {
+        var request = new SearchBeansQuery(query, country, colour, minCost, maxCost, page, pageSize);
+        return await mediator.Send(request, ct);
+    }
 
     [HttpGet("{id:guid}")]
     [Authorize]
